@@ -1,0 +1,115 @@
+---
+title: "Simple document"
+author: Serena Ting
+date: September 15, 2024
+output: 
+  html_document:
+      toc: true 
+      toc_float: true
+      code_folding: hide
+---
+
+## Lecture 3 with Notes
+
+The above is a YAML header. Can also just put "output: html_document". "toc" means table of contents
+"toc_float" will have the table of contents floating on the left side bar as you scroll. Can see this better if click on the "show in new window" icon next to the broom.
+"code_folding" minimizes the code chunk and you can then choose to expand it by clicking it.
+Possible output type other than html:
+pdf_document, word_document, github_documents
+
+
+I'm an R Markdown document! 
+
+A "#" will indicate a title heading. But in a code chunk, it indicates a comment. Add a consecutive # to indicate sub/sub-sub, etc heading or to change the font size of the heading
+
+# Section 1
+
+Here's a **code chunk** that samples from 
+a _normal distribution_:
+
+(Putting asteriks "**" before and after a term makes it bold and underscores on either side makes them italicized)
+
+```{r}
+samp = rnorm(100) 
+length(samp)
+```
+The code above draws a sample from a normal distribution and ask what the length of that sample is. Back ticks " ``` " defines text that is code.
+
+#can run code by highlighting and pressing command enter
+
+# Section 2
+
+I can take the mean of the sample, too!
+The mean is `r mean(samp)`.
+(You can also add a code with a formula to calculate the mean of the sample)
+
+The code chunk below creates a data frame and generates a plot. 
+```{r, message = FALSE}
+library(tidyverse)
+
+plot_df = tibble(
+  x = rnorm(500, mean = 2, sd = 4),
+  y = 3 - 4.2 * x + rnorm(500)
+)
+  
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+```
+"rnorm(n, mean, and sd)" code means normal distribution with these settings. "rnorm(n)" would have mean = 0 and sd = 1. (?) In the above code, "rnorm(500)" because want some scatter in y."aes(X = ,y = )" tells R what goes on x/y axis. "geom_point()" is the type of plot with lots of little points.
+
+Can turn the message off by adding "message = FALSE." Messages meaning Ex. the output after successfully running "library(tidyverse)". Delete message code to see difference.
+
+This plot is really great! It shows a linear relationship just as expected.
+
+Another code example:
+```{r plot_example, eval = FALSE}
+
+plot_df = tibble(
+  x = rnorm(500, mean = 2, sd = 4),
+  y = 3 - 4.2 * x + rnorm(500)
+)
+  
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+```
+add "eval" to indicate whether or not you want the code to be evaluated. By default, it is set to TRUE. Can change that by writing "eval = FALSE". It gives a way to export/show the code without generating the results of the code. (The first code chunk included graph but this code chunk doesn't)
+
+Another code example:
+```{r plot_examples, echo = FALSE}
+
+plot_df = tibble(
+  x = rnorm(500, mean = 2, sd = 4),
+  y = 3 - 4.2 * x + rnorm(500)
+)
+  
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+```
+added "echo" to run the code but not show the code. By default, it is set to TRUE. Can change that by writing "echo = FALSE".
+
+Adding "include = FALSE" in the bracket will turn off the entire code chunk as if it didn't exist (code and results wonn't show after knit).
+
+Adding "collapse = TRUE" to collapse the output of a code chunk all into one place.
+
+The data frame has `r nrow(plot_df)` rows. The code "r nrow(plot_df)" will calculate how many rows there are in the data frame.
+
+# Section 3
+
+#### Data frame and plot
+
+Here is a list:
+
+* This is my first list item
+* Lists need at least 2 items
+  * this list has a sub item
+* Third list item
+
+#### Table
+
+Col 1 | Col 2
+------|------
+a     |b
+c     |d
+
+more examples of text formatting on R markdown in the cheatsheet on website module.
+
+Adding ">" makes a block quote
+
+> This is a block quote.
